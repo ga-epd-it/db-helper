@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SPFunctionTests\SPScalarFunctionsTests.vb" />
+    <Compile Include="UtilityTests\TvpTests.vb" />
     <Compile Include="UtilityTests\NullableDateTimeUtilitiesTests.vb" />
     <Compile Include="QueryFunctionTests\NonQueryFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\ScalarFunctionsTests.vb" />

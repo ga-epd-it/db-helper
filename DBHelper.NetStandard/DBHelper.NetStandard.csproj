@@ -6,4 +6,8 @@
     <AssemblyName>EpdIt.DBHelper</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+  </ItemGroup>
+
 </Project>
