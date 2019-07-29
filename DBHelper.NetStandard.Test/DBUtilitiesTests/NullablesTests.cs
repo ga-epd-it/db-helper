@@ -3,7 +3,7 @@ using System;
 using Xunit;
 using static EpdIt.DBUtilities;
 
-namespace EpdIt.DBHelper.Test.DBUtilitiesTests
+namespace EpdIt.DBHelperTest.DBUtilitiesTests
 {
     public class NullablesTests
     {

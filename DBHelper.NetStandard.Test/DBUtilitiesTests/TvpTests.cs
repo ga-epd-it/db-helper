@@ -7,7 +7,7 @@ using System.Linq;
 using Xunit;
 using static EpdIt.DBUtilities;
 
-namespace EpdIt.DBHelper.Test.DBUtilitiesTests
+namespace EpdIt.DBHelperTest.DBUtilitiesTests
 {
     public class TvpTests
     {
