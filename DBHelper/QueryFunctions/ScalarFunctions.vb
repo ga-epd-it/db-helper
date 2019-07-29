@@ -53,7 +53,7 @@ Partial Public Class DBHelper
     End Function
 
     ''' <summary>
-    ''' Retrieves a string sclalar value from the database.
+    ''' Retrieves a string scalar value from the database.
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An array of SqlParameter values to send.</param>
