@@ -4,9 +4,12 @@ using System.Data.SqlClient;
 
 namespace EpdIt
 {
-    public partial class DBHelper
+    internal static partial class DbActions
     {
-        private object QGetScalar(string query, SqlParameter[] parameterArray)
+        public static object QGetScalar(
+            string query, 
+            SqlParameter[] parameterArray, 
+            string connectionString)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -40,7 +43,11 @@ namespace EpdIt
             }
         }
 
-        private object SPExecuteScalar(string spName, SqlParameter[] parameters, out int returnValue)
+        public static object SPExecuteScalar(
+            string spName, 
+            SqlParameter[] parameters, 
+            out int returnValue, 
+            string connectionString)
         {
             if (string.IsNullOrEmpty(spName))
             {

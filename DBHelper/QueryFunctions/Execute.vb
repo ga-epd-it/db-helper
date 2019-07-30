@@ -13,7 +13,7 @@ Partial Public Class DBHelper
     Private Function QExecuteNonQuery(queryList As List(Of String),
                                       parametersList As List(Of SqlParameter()),
                                       ByRef rowsAffectedList As List(Of Integer)
-                                      ) As Integer
+                                      ) As Boolean
 
         If queryList.Count <> parametersList.Count Then
             Throw New ArgumentException("The number of queries does not match the number of SqlParameter sets")

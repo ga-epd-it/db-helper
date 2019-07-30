@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace EpdIt
 {
-    public partial class DBHelper
+    internal static partial class DbActions
     {
         private static SqlParameter[] DbNullifyParameters(SqlParameter[] parameters)
         {
@@ -24,7 +24,7 @@ namespace EpdIt
             return result.ToArray();
         }
 
-        private SqlParameter ReturnValueParameter() =>
+        private static SqlParameter ReturnValueParameter() =>
             new SqlParameter("@DbHelperReturnValue", SqlDbType.Int)
             {
                 Direction = ParameterDirection.ReturnValue

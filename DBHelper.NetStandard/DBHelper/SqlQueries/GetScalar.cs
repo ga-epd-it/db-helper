@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using static EpdIt.DbActions;
 
 namespace EpdIt
 {
@@ -13,7 +14,7 @@ namespace EpdIt
         /// <param name="parameters">An array of SqlParameter values to send.</param>
         /// <returns>A value of the specified type.</returns>
         public T GetSingleValue<T>(string query, SqlParameter[] parameters) =>
-            DBUtilities.GetNullable<T>(QGetScalar(query, parameters));
+            DBUtilities.GetNullable<T>(QGetScalar(query, parameters, connectionString));
 
         /// <summary>
         /// Retrieves a single value of the specified type from the database.

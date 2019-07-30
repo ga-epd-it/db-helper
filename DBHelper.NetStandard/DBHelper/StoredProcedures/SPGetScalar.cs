@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using static EpdIt.DbActions;
 
 namespace EpdIt
 {
@@ -16,7 +17,7 @@ namespace EpdIt
         /// <returns>A value of the specified type.</returns>
         public T SPGetSingleValue<T>(string spName, SqlParameter[] parameters, out int returnValue)
         {
-            var result = SPExecuteScalar(spName, parameters, out returnValue);
+            var result = SPExecuteScalar(spName, parameters, out returnValue, connectionString);
             return DBUtilities.GetNullable<T>(result);
         }
 

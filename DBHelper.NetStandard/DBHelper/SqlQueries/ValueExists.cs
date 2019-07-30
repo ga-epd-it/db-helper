@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using static EpdIt.DbActions;
 
 namespace EpdIt
 {
@@ -13,7 +14,7 @@ namespace EpdIt
         /// <returns>A boolean value signifying whether the indicated value exists and is not DBNull.</returns>
         public bool ValueExists(string query, SqlParameter[] parameters)
         {
-            object result = QGetScalar(query, parameters);
+            object result = QGetScalar(query, parameters, connectionString);
             return (result != null && !Convert.IsDBNull(result));
         }
 
