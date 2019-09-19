@@ -6,7 +6,6 @@ namespace EpdIt
 {
     public partial class DBHelper
     {
-
         /// <summary>
         /// Retrieves a single value of the specified type from the database by calling a stored procedure.
         /// </summary>

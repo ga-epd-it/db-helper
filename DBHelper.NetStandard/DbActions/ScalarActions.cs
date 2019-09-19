@@ -20,7 +20,7 @@ namespace EpdIt
             {
                 using (var command = new SqlCommand(query, connection))
                 {
-                    // Setup
+                    // Set up
                     command.CommandType = CommandType.Text;
 
                     if (parameterArray != null && parameterArray.Length > 0)
@@ -31,10 +31,10 @@ namespace EpdIt
 
                     // Run
                     command.Connection.Open();
-                    var result = command.ExecuteScalar();
+                    object result = command.ExecuteScalar();
                     command.Connection.Close();
 
-                    // Cleanup
+                    // Clean up
                     command.Parameters.Clear();
 
                     // Return
@@ -58,7 +58,7 @@ namespace EpdIt
             {
                 using (var command = new SqlCommand(spName, connection))
                 {
-                    // Setup
+                    // Set up
                     command.CommandType = CommandType.StoredProcedure;
 
                     if (parameters != null && parameters.Length > 0)
@@ -67,21 +67,21 @@ namespace EpdIt
                         command.Parameters.AddRange(parameters);
                     }
 
-                    var returnParameter = ReturnValueParameter();
+                    SqlParameter returnParameter = ReturnValueParameter();
                     command.Parameters.Add(returnParameter);
 
                     // Run
                     command.Connection.Open();
-                    var result = command.ExecuteScalar();
+                    object result = command.ExecuteScalar();
                     command.Connection.Close();
 
-                    // Cleanup
-                    returnValue = Convert.ToInt32(returnParameter.Value);
+                    // Clean up
+                    returnValue = (int)returnParameter.Value;
                     command.Parameters.Remove(returnParameter);
 
                     if (parameters != null && parameters.Length > 0)
                     {
-                        var newArray = new SqlParameter[command.Parameters.Count];
+                        SqlParameter[] newArray = new SqlParameter[command.Parameters.Count];
                         command.Parameters.CopyTo(newArray, 0);
                         Array.Copy(newArray, parameters, parameters.Length);
                     }
