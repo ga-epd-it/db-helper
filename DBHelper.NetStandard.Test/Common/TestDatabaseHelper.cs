@@ -120,6 +120,8 @@ namespace EpdIt.DBHelperTest.Common
                             SELECT * FROM numbers
                             OPTION (MAXRECURSION 0);
                         end;
+                        if @dataset = 1
+                            return 1;
                         return 0;
                     end;";
                     cmd.ExecuteNonQuery();
