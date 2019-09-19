@@ -15,10 +15,8 @@ namespace EpdIt
         /// <param name="query">The SQL query to send.</param>
         /// <param name="parameters">An array of SqlParameter values to send.</param>
         /// <returns>A DataTable of values.</returns>
-        public DataTable GetDataTable(string query, SqlParameter[] parameters)
-        {
-            return QFillDataTable(query, parameters, connectionString);
-        }
+        public DataTable GetDataTable(string query, SqlParameter[] parameters) => 
+            QFillDataTable(query, parameters, _connectionString);
 
         /// <summary>
         /// Retrieves a DataTable of values from the database.

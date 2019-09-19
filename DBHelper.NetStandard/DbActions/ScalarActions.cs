@@ -14,10 +14,7 @@ namespace EpdIt
         /// <param name="connectionString">The database connection string.</param>
         /// <returns>The first column of the first row in the result set, or a null 
         /// reference if the result set is empty.</returns>
-        public static object QGetScalar(
-            string query,
-            SqlParameter[] parameters,
-            string connectionString)
+        public static object QGetScalar(string query, SqlParameter[] parameters, string connectionString)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -62,11 +59,7 @@ namespace EpdIt
         /// <param name="connectionString">The database connection string.</param>
         /// <returns>The first column of the first row in the result set, or a null 
         /// reference if the result set is empty.</returns>
-        public static object SPExecuteScalar(
-            string spName,
-            SqlParameter[] parameters,
-            out int returnValue,
-            string connectionString)
+        public static object SPExecuteScalar(string spName, SqlParameter[] parameters, out int returnValue, string connectionString)
         {
             if (string.IsNullOrEmpty(spName))
             {

@@ -46,13 +46,11 @@ namespace EpdIt
         /// <param name="dbTableTypeName">The name of the Table Type in the database</param>
         /// <returns>A table-valued SqlParameter of type T, containing the supplied values.</returns>
         /// <remarks>See http://stackoverflow.com/a/337864/212978 </remarks>
-        public static SqlParameter TvpSqlParameter<T>(string parameterName, IEnumerable<T> values, string dbTableTypeName, string dbColumnName)
-        {
-            return new SqlParameter(parameterName, SqlDbType.Structured)
+        public static SqlParameter TvpSqlParameter<T>(string parameterName, IEnumerable<T> values, string dbTableTypeName, string dbColumnName) =>
+            new SqlParameter(parameterName, SqlDbType.Structured)
             {
                 Value = SqlDataRecords(values, dbColumnName),
                 TypeName = dbTableTypeName
             };
-        }
     }
 }

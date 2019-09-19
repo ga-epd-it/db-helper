@@ -2,11 +2,8 @@
 {
     public partial class DBHelper
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
-        public DBHelper(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
+        public DBHelper(string connectionString) => _connectionString = connectionString;
     }
 }

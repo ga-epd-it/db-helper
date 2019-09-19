@@ -16,10 +16,8 @@ namespace EpdIt
         /// <param name="parameters">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
         /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A DataSet.</returns>
-        public DataSet SPGetDataSet(string spName, SqlParameter[] parameters, out int returnValue)
-        {
-            return SPFillDataSet(spName, parameters, out returnValue, connectionString);
-        }
+        public DataSet SPGetDataSet(string spName, SqlParameter[] parameters, out int returnValue) =>
+            SPFillDataSet(spName, parameters, out returnValue, _connectionString);
 
         /// <summary>
         /// Retrieves a DataSet containing one or more DataTables selected from the database.
@@ -40,10 +38,8 @@ namespace EpdIt
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
         /// <returns>A DataSet.</returns>
-        public DataSet SPGetDataSet(string spName, SqlParameter parameter = null)
-        {
-            return SPGetDataSet(spName, parameter, out _);
-        }
+        public DataSet SPGetDataSet(string spName, SqlParameter parameter = null) =>
+            SPGetDataSet(spName, parameter, out _);
 
         // DataTable
 
@@ -90,10 +86,8 @@ namespace EpdIt
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
         /// <returns>A DataTable.</returns>
-        public DataTable SPGetDataTable(string spName, SqlParameter parameter = null)
-        {
-            return SPGetDataTable(spName, parameter, out _);
-        }
+        public DataTable SPGetDataTable(string spName, SqlParameter parameter = null) =>
+            SPGetDataTable(spName, parameter, out _);
 
         // DataRow
 
@@ -140,10 +134,8 @@ namespace EpdIt
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A DataRow.</returns>
-        public DataRow SPGetDataRow(string spName, SqlParameter parameter = null)
-        {
-            return SPGetDataRow(spName, parameter, out _);
-        }
+        public DataRow SPGetDataRow(string spName, SqlParameter parameter = null) =>
+            SPGetDataRow(spName, parameter, out _);
 
         // LookupDictionary
 
@@ -186,9 +178,7 @@ namespace EpdIt
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
         /// <returns>A DataSet.</returns>
-        public Dictionary<int, string> SPGetLookupDictionary(string spName, SqlParameter parameter = null)
-        {
-            return SPGetLookupDictionary(spName, parameter, out _);
-        }
+        public Dictionary<int, string> SPGetLookupDictionary(string spName, SqlParameter parameter = null) =>
+            SPGetLookupDictionary(spName, parameter, out _);
     }
 }

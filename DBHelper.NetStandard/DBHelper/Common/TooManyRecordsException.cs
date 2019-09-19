@@ -6,11 +6,11 @@ namespace EpdIt
     {
         public class TooManyRecordsException : Exception
         {
-            private const string errorMessage = "Query returned more than one record.";
+            private const string _errorMessage = "Query returned more than one record.";
 
-            public TooManyRecordsException() : base(errorMessage) { }
+            public TooManyRecordsException() : base(_errorMessage) { }
 
-            public TooManyRecordsException(string auxMessage) : base($"{errorMessage} - {auxMessage}") { }
+            public TooManyRecordsException(string auxMessage) : base($"{_errorMessage} - {auxMessage}") { }
         }
     }
 }

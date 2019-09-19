@@ -14,10 +14,7 @@ namespace EpdIt
             return (T)obj;
         }
 
-        public static string GetNullableString(object obj)
-        {
-            return GetNullable<string>(obj);
-        }
+        public static string GetNullableString(object obj) => GetNullable<string>(obj);
 
         public static DateTime? GetNullableDateTime(object obj)
         {

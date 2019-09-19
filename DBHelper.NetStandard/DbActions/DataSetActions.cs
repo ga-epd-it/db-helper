@@ -14,10 +14,7 @@ namespace EpdIt
         /// <param name="parameters">An array of SqlParameter values.</param>
         /// <param name="connectionString">The database connection string.</param>
         /// <returns>A DataTable</returns>
-        public static DataTable QFillDataTable(
-            string query,
-            SqlParameter[] parameters,
-            string connectionString)
+        public static DataTable QFillDataTable(string query, SqlParameter[] parameters, string connectionString)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -65,11 +62,7 @@ namespace EpdIt
         /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <param name="connectionString">The database connection string.</param>
         /// <returns>A DataSet.</returns>
-        public static DataSet SPFillDataSet(
-            string spName,
-            SqlParameter[] parameters,
-            out int returnValue,
-            string connectionString)
+        public static DataSet SPFillDataSet(string spName, SqlParameter[] parameters, out int returnValue, string connectionString)
         {
             if (string.IsNullOrEmpty(spName))
             {
