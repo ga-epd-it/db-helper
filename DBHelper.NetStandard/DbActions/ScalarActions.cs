@@ -6,9 +6,17 @@ namespace EpdIt
 {
     internal static partial class DbActions
     {
+        /// <summary>
+        /// Retrieves a single value from the database by calling a stored procedure.
+        /// </summary>
+        /// <param name="query">The name of the stored procedure to execute.</param>
+        /// <param name="parameters">An array of SqlParameter values.</param>
+        /// <param name="connectionString">The database connection string.</param>
+        /// <returns>The first column of the first row in the result set, or a null 
+        /// reference if the result set is empty.</returns>
         public static object QGetScalar(
-            string query, 
-            SqlParameter[] parameterArray, 
+            string query,
+            SqlParameter[] parameters,
             string connectionString)
         {
             if (string.IsNullOrEmpty(query))
@@ -23,10 +31,10 @@ namespace EpdIt
                     // Set up
                     command.CommandType = CommandType.Text;
 
-                    if (parameterArray != null && parameterArray.Length > 0)
+                    if (parameters != null && parameters.Length > 0)
                     {
-                        DbNullifyParameters(parameterArray);
-                        command.Parameters.AddRange(parameterArray);
+                        DbNullifyParameters(parameters);
+                        command.Parameters.AddRange(parameters);
                     }
 
                     // Run
@@ -43,10 +51,21 @@ namespace EpdIt
             }
         }
 
+        /// <summary>
+        /// Retrieves a single value from the database by calling a stored procedure.
+        /// </summary>
+        /// <param name="spName">The name of the stored procedure to execute.</param>
+        /// <param name="parameters">An array of SqlParameter values. The array may be 
+        /// modified by the stored produre if it includes output parameters.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of 
+        /// the stored procedure.</param>
+        /// <param name="connectionString">The database connection string.</param>
+        /// <returns>The first column of the first row in the result set, or a null 
+        /// reference if the result set is empty.</returns>
         public static object SPExecuteScalar(
-            string spName, 
-            SqlParameter[] parameters, 
-            out int returnValue, 
+            string spName,
+            SqlParameter[] parameters,
+            out int returnValue,
             string connectionString)
         {
             if (string.IsNullOrEmpty(spName))

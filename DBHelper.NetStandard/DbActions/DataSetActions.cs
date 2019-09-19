@@ -6,6 +6,14 @@ namespace EpdIt
 {
     internal static partial class DbActions
     {
+        /// <summary>
+        /// Retrieves a DataSet containing one or more DataTables selected from the database by calling a stored procedure.
+        /// (Adds the necessary columns and primary key information to complete the schema.)
+        /// </summary>
+        /// <param name="query">The name of the stored procedure to execute.</param>
+        /// <param name="parameters">An array of SqlParameter values.</param>
+        /// <param name="connectionString">The database connection string.</param>
+        /// <returns>A DataTable</returns>
         public static DataTable QFillDataTable(
             string query,
             SqlParameter[] parameters,
@@ -48,6 +56,15 @@ namespace EpdIt
             }
         }
 
+        /// <summary>
+        /// Retrieves a DataSet containing one or more DataTables selected from the database by calling a stored procedure.
+        /// (Adds the necessary columns and primary key information to complete the schema.)
+        /// </summary>
+        /// <param name="spName">The name of the stored procedure to execute.</param>
+        /// <param name="parameters">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="connectionString">The database connection string.</param>
+        /// <returns>A DataSet.</returns>
         public static DataSet SPFillDataSet(
             string spName,
             SqlParameter[] parameters,
@@ -103,6 +120,5 @@ namespace EpdIt
                 }
             }
         }
-
     }
 }

@@ -12,7 +12,7 @@ namespace EpdIt
         /// <typeparam name="T">The expected type of the value retrieved from the database.</typeparam>
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameters">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A value of the specified type.</returns>
         public T SPGetSingleValue<T>(string spName, SqlParameter[] parameters, out int returnValue)
         {
@@ -26,7 +26,7 @@ namespace EpdIt
         /// <typeparam name="T">The expected type of the value retrieved from the database.</typeparam>
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A value of the specified type.</returns>
         public T SPGetSingleValue<T>(string spName, SqlParameter parameter, out int returnValue)
         {
@@ -39,7 +39,7 @@ namespace EpdIt
         /// </summary>
         /// <typeparam name="T">The expected type of the value retrieved from the database.</typeparam>
         /// <param name="spName">The name of the stored procedure to execute.</param>
-        /// <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+        /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
         /// <returns>A value of the specified type.</returns>
         public T SPGetSingleValue<T>(string spName, SqlParameter parameter = null)
         {
@@ -51,7 +51,7 @@ namespace EpdIt
         /// </summary>
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameters">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A boolean value.</returns>
         public bool SPGetBoolean(string spName, SqlParameter[] parameters, out int returnValue)
         {
@@ -62,8 +62,8 @@ namespace EpdIt
         /// Retrieves a scalar boolean value from the database by calling a stored procedure.
         /// </summary>
         /// <param name="spName">The name of the stored procedure to execute.</param>
-        /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A boolean value.</returns>
         public bool SPGetBoolean(string spName, SqlParameter parameter, out int returnValue)
         {
@@ -86,7 +86,7 @@ namespace EpdIt
         /// </summary>
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameters">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>An integer value.</returns>
         public int SPGetInteger(string spName, SqlParameter[] parameters, out int returnValue)
         {
@@ -97,8 +97,8 @@ namespace EpdIt
         /// Retrieves a scalar integer value from the database by calling a stored procedure.
         /// </summary>
         /// <param name="spName">The name of the stored procedure to execute.</param>
-        /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>An integer value.</returns>
         public int SPGetInteger(string spName, SqlParameter parameter, out int returnValue)
         {
@@ -121,7 +121,7 @@ namespace EpdIt
         /// </summary>
         /// <param name="spName">The name of the stored procedure to execute.</param>
         /// <param name="parameters">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A string value.</returns>
         public string SPGetString(string spName, SqlParameter[] parameters, out int returnValue)
         {
@@ -132,8 +132,8 @@ namespace EpdIt
         /// Retrieves a scalar string value from the database by calling a stored procedure.
         /// </summary>
         /// <param name="spName">The name of the stored procedure to execute.</param>
-        /// <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
-        /// <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+        /// <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+        /// <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
         /// <returns>A string value.</returns>
         public string SPGetString(string spName, SqlParameter parameter, out int returnValue)
         {

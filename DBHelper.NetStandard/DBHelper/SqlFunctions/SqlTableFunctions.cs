@@ -9,11 +9,23 @@ namespace EpdIt
     {
         // DataTable
 
+        /// <summary>
+        /// Retrieves a DataTable of values from the database.
+        /// </summary>
+        /// <param name="query">The SQL query to send.</param>
+        /// <param name="parameters">An array of SqlParameter values to send.</param>
+        /// <returns>A DataTable of values.</returns>
         public DataTable GetDataTable(string query, SqlParameter[] parameters)
         {
             return QFillDataTable(query, parameters, connectionString);
         }
 
+        /// <summary>
+        /// Retrieves a DataTable of values from the database.
+        /// </summary>
+        /// <param name="query">The SQL query to send.</param>
+        /// <param name="parameter">An optional SqlParameter to send.</param>
+        /// <returns>A DataTable of values.</returns>
         public DataTable GetDataTable(string query, SqlParameter parameter = null)
         {
             SqlParameter[] parameters = parameter == null ? null : new SqlParameter[] { parameter };
@@ -22,6 +34,12 @@ namespace EpdIt
 
         // DataRow
 
+        /// <summary>
+        /// Retrieves a single row of values from the database.
+        /// </summary>
+        /// <param name="query">The SQL query to send.</param>
+        /// <param name="parameters">An array of SqlParameter values to send.</param>
+        /// <returns>A DataRow of values.</returns>
         public DataRow GetDataRow(string query, SqlParameter[] parameters)
         {
             DataTable dataTable = GetDataTable(query, parameters);
@@ -39,6 +57,12 @@ namespace EpdIt
             return dataTable.Rows[0];
         }
 
+        /// <summary>
+        /// Retrieves a single row of values from the database.
+        /// </summary>
+        /// <param name="query">The SQL query to send.</param>
+        /// <param name="parameter">An optional SqlParameter to send.</param>
+        /// <returns>A DataRow of values.</returns>
         public DataRow GetDataRow(string query, SqlParameter parameter = null)
         {
             SqlParameter[] parameters = parameter == null ? null : new SqlParameter[] { parameter };
@@ -47,6 +71,12 @@ namespace EpdIt
 
         // LookupDictionary
 
+        /// <summary>
+        /// Retrieves a dictionary of (integer -> string) values from the database
+        /// </summary>
+        /// <param name="query">The SQL query to send.</param>
+        /// <param name="parameters">An array of SqlParameter values to send.</param>
+        /// <returns>A lookup dictionary.</returns>
         public Dictionary<int, string> GetLookupDictionary(string query, SqlParameter[] parameters)
         {
             Dictionary<int, string> d = new Dictionary<int, string>();
@@ -60,6 +90,12 @@ namespace EpdIt
             return d;
         }
 
+        /// <summary>
+        /// Retrieves a dictionary of (integer -> string) values from the database
+        /// </summary>
+        /// <param name="query">The SQL query to send.</param>
+        /// <param name="parameter">An optional SqlParameter to send.</param>
+        /// <returns>A lookup dictionary.</returns>
         public Dictionary<int, string> GetLookupDictionary(string query, SqlParameter parameter = null)
         {
             SqlParameter[] parameters = parameter == null ? null : new SqlParameter[] { parameter };
