@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using EpdIt.DBHelperTest.Common;
+using FluentAssertions;
 using System;
 using System.Data.SqlClient;
 using Xunit;
@@ -6,13 +7,13 @@ using static EpdIt.DBHelperTest.Common.TestDatabaseHelper;
 
 namespace EpdIt.DBHelperTest.DBHelperTests
 {
-    public class SPGetScalarTests
+    public class SPScalarTests
     {
         [Fact]
         public void GetSingleValueWithNoParameter()
         {
-            DBHelper DB = this.GetDBHelper();
-            string result = DB.SPGetSingleValue<string>(spScalar);
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
+            string result = DB.SPGetSingleValue<string>(ScalarStoredProcedure);
 
             result.Should().Equals("null parameter");
         }
@@ -20,9 +21,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetSingleValueWithSingleParameter()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@case", "A");
-            int result = DB.SPGetSingleValue<int>(spScalar, parameter);
+            int result = DB.SPGetSingleValue<int>(ScalarStoredProcedure, parameter);
 
             result.Should().Equals(0);
         }
@@ -30,9 +31,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetStringValue()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@case", "Z");
-            string result = DB.SPGetString(spScalar, parameter);
+            string result = DB.SPGetString(ScalarStoredProcedure, parameter);
 
             result.Should().Equals("other");
         }
@@ -40,21 +41,20 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetStringWithImplicitConversionShouldFail()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@case", "A");
 
-            Action act = () => DB.SPGetString(spScalar, parameter);
-
-            act.Should().Throw<InvalidCastException>()
+            DB.Invoking(x => x.SPGetString(ScalarStoredProcedure, parameter))
+                .Should().Throw<InvalidCastException>()
                 .WithMessage("Unable to cast object of type 'System.Int32' to type 'System.String'.");
         }
 
         [Fact]
         public void GetDateValue()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@case", "C");
-            DateTime result = DB.SPGetSingleValue<DateTime>(spScalar, parameter);
+            DateTime result = DB.SPGetSingleValue<DateTime>(ScalarStoredProcedure, parameter);
 
             result.Should().Equals(new DateTime(2014, 5, 1));
         }
@@ -62,11 +62,11 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Theory]
         [InlineData("D", false)]
         [InlineData("E", true)]
-        public void GetBooleanValue(string testcase, bool expected)
+        public void GetBooleanValue(string testCase, bool expected)
         {
-            DBHelper DB = this.GetDBHelper(testcase);
-            SqlParameter parameter = new SqlParameter("@case", testcase);
-            bool result = DB.SPGetBoolean(spScalar, parameter);
+            DBHelper DB = this.CreateDBHelper(appendToName: testCase, withQuerySP: true);
+            SqlParameter parameter = new SqlParameter("@case", testCase);
+            bool result = DB.SPGetBoolean(ScalarStoredProcedure, parameter);
 
             result.Should().Equals(expected);
         }
@@ -74,10 +74,10 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetReturnValueWithNoParameter()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter dummy = null;
 
-            string result = DB.SPGetSingleValue<string>(spScalar, dummy, out int returnValue);
+            string result = DB.SPGetSingleValue<string>(ScalarStoredProcedure, dummy, out int returnValue);
 
             result.Should().Equals("null parameter");
             returnValue.Should().Equals(0);
@@ -86,11 +86,11 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Theory]
         [InlineData("D", false, 30)]
         [InlineData("E", true, 31)]
-        public void GetBooleanAndReturnValue(string testcase, bool expectedResult, int expectedReturnValue)
+        public void GetBooleanAndReturnValue(string testCase, bool expectedResult, int expectedReturnValue)
         {
-            DBHelper DB = this.GetDBHelper(testcase);
-            SqlParameter parameter = new SqlParameter("@case", testcase);
-            bool result = DB.SPGetBoolean(spScalar, parameter, out int returnValue);
+            DBHelper DB = this.CreateDBHelper(appendToName: testCase, withQuerySP: true);
+            SqlParameter parameter = new SqlParameter("@case", testCase);
+            bool result = DB.SPGetBoolean(ScalarStoredProcedure, parameter, out int returnValue);
 
             result.Should().Equals(expectedResult);
             returnValue.Should().Equals(expectedReturnValue);
@@ -99,9 +99,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDateAndReturnValue()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@case", "C");
-            var result = DB.SPGetSingleValue<DateTime>(spScalar, parameter, out int returnValue);
+            var result = DB.SPGetSingleValue<DateTime>(ScalarStoredProcedure, parameter, out int returnValue);
 
             result.Should().Equals(new DateTime(2014, 5, 1));
             returnValue.Should().Equals(22);
@@ -110,9 +110,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetStringAndReturnValue()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@case", "Z");
-            string result = DB.SPGetString(spScalar, parameter, out int returnValue);
+            string result = DB.SPGetString(ScalarStoredProcedure, parameter, out int returnValue);
 
             result.Should().Equals("other");
             returnValue.Should().Equals(99);

@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
+﻿using EpdIt.DBHelperTest.Common;
+using FluentAssertions;
 using System.Data.SqlClient;
 using Xunit;
-using static EpdIt.DBHelperTest.Common.TestDatabaseHelper;
 
 namespace EpdIt.DBHelperTest.DBHelperTests
 {
@@ -10,6 +10,7 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void ValueExistsWithParameterArrayTrue()
         {
+            DBHelper DB = this.CreateDBHelper();
             string query = "select DATEDIFF(day, @day1, @day2)";
 
             SqlParameter[] parameters =
@@ -17,8 +18,6 @@ namespace EpdIt.DBHelperTest.DBHelperTests
                 new SqlParameter("@day1","2014-06-05"),
                 new SqlParameter("@day2","2014-08-05")
             };
-
-            DBHelper DB = this.GetDBHelper();
 
             bool result = DB.ValueExists(query, parameters);
 
@@ -28,12 +27,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void ValueExistsWithParameterArrayFalse()
         {
+            DBHelper DB = this.CreateDBHelper();
             string query = "select null";
-
-            DBHelper DB = this.GetDBHelper();
-
             bool result = DB.ValueExists(query);
-
             result.Should().BeFalse();
         }
     }

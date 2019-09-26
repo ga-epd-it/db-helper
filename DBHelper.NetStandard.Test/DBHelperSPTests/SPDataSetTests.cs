@@ -8,13 +8,13 @@ using static EpdIt.DBHelperTest.Common.TestDatabaseHelper;
 
 namespace EpdIt.DBHelperTest.DBHelperTests
 {
-    public class SPGetDataSetTests
+    public class SPDataSetTests
     {
         [Fact]
         public void GetSingleTableWithNoParameter()
         {
-            DBHelper DB = this.GetDBHelper();
-            DataTable result = DB.SPGetDataTable(spTables);
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
+            DataTable result = DB.SPGetDataTable(DataSetStoredProcedure);
 
             result.Rows.Should().HaveCount(10);
             result.Rows[0][0].Should().BeOfType<int>();
@@ -30,9 +30,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDataTableWithParameter()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@count", 5);
-            DataTable result = DB.SPGetDataTable(spTables, parameter);
+            DataTable result = DB.SPGetDataTable(DataSetStoredProcedure, parameter);
 
             result.Rows.Should().HaveCount(5);
             result.Rows[0][0].Should().BeOfType<int>();
@@ -48,9 +48,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDataRow()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@count", 1);
-            DataRow result = DB.SPGetDataRow(spTables, parameter);
+            DataRow result = DB.SPGetDataRow(DataSetStoredProcedure, parameter);
 
             result[0].Should().BeOfType<int>();
             result[0].Should().Be(1);
@@ -65,9 +65,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDataRowAndReturnValue()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@count", 1);
-            DataRow result = DB.SPGetDataRow(spTables, parameter, out int returnValue);
+            DataRow result = DB.SPGetDataRow(DataSetStoredProcedure, parameter, out int returnValue);
 
             result[0].Should().BeOfType<int>();
             result[0].Should().Be(1);
@@ -84,12 +84,12 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDataSet()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter[] parameters = {
                 new SqlParameter("@count", 5),
                 new SqlParameter("@dataset", 1)
             };
-            DataSet result = DB.SPGetDataSet(spTables, parameters, out int returnValue);
+            DataSet result = DB.SPGetDataSet(DataSetStoredProcedure, parameters, out int returnValue);
 
             result.Should().BeOfType<DataSet>();
             result.Tables.Count.Should().Be(2);
@@ -122,14 +122,16 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetLookupDictionary()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper(withQuerySP: true);
             SqlParameter parameter = new SqlParameter("@count", 10);
 
-            Dictionary<int, string> result = DB.SPGetLookupDictionary(spTables, parameter);
+            Dictionary<int, string> result = DB.SPGetLookupDictionary(DataSetStoredProcedure, parameter);
 
             result.Count.Should().Be(10);
             result[1].Should().Be("text-1");
-            Assert.Throws<KeyNotFoundException>(() => result[0]);
+
+            result.Invoking(x => x[0])
+                .Should().Throw<KeyNotFoundException>();
         }
     }
 }

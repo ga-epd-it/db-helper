@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using EpdIt.DBHelperTest.Common;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,13 +9,13 @@ using static EpdIt.DBHelperTest.Common.TestDatabaseHelper;
 
 namespace EpdIt.DBHelperTest.DBHelperTests
 {
-    public class SqlTableTests
+    public class SqlDataTableTests
     {
         [Fact]
         public void GetDataTableWithNoParameters()
         {
-            DBHelper DB = this.GetDBHelper();
-            DataTable result = DB.GetDataTable(tableQuery);
+            DBHelper DB = this.CreateDBHelper();
+            DataTable result = DB.GetDataTable(TableQuery);
 
             result.Rows.Should().HaveCount(10);
             result.Rows[0][0].Should().BeOfType<int>();
@@ -30,9 +31,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDataTableWithParameter()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper();
             SqlParameter parameter = new SqlParameter("@count", 5);
-            DataTable result = DB.GetDataTable(tableQueryParam, parameter);
+            DataTable result = DB.GetDataTable(TableQueryWithParam, parameter);
 
             result.Rows.Should().HaveCount(5);
             result.Rows[0][0].Should().BeOfType<int>();
@@ -48,9 +49,9 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetDataRow()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper();
             SqlParameter parameter = new SqlParameter("@count", 1);
-            DataRow result = DB.GetDataRow(tableQueryParam, parameter);
+            DataRow result = DB.GetDataRow(TableQueryWithParam, parameter);
 
             result[0].Should().BeOfType<int>();
             result[0].Should().Be(1);
@@ -65,14 +66,16 @@ namespace EpdIt.DBHelperTest.DBHelperTests
         [Fact]
         public void GetLookupDictionary()
         {
-            DBHelper DB = this.GetDBHelper();
+            DBHelper DB = this.CreateDBHelper();
             SqlParameter parameter = new SqlParameter("@count", 10);
 
-            Dictionary<int, string> result = DB.GetLookupDictionary(tableQueryParam, parameter);
+            Dictionary<int, string> result = DB.GetLookupDictionary(TableQueryWithParam, parameter);
 
             result.Count.Should().Be(10);
             result[1].Should().Be("text-1");
-            Assert.Throws<KeyNotFoundException>(() => result[0]);
+
+            result.Invoking(x => x[0])
+                .Should().Throw<KeyNotFoundException>();
         }
     }
 }
